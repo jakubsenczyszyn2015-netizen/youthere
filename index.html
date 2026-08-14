@@ -3,182 +3,214 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>YouThere — download</title>
-<meta name="description" content="YouThere is a lightweight Windows desktop app. Download the latest build — no installer, no account, just run it.">
+<title>YouThere? — download</title>
+<meta name="description" content="Earn points. Spend them interrupting everyone. YouThere? is a voice-and-chaos party app for Windows — voice chat, games, and shouts that land on everyone's screen.">
 <link rel="icon" href="assets/favicon.ico" sizes="any">
 <link rel="icon" href="assets/icon-192.png" type="image/png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
-<meta name="theme-color" content="#0a0a12">
-<meta property="og:title" content="YouThere">
-<meta property="og:description" content="A lightweight Windows desktop app. Download and run — no installer required.">
+<meta name="theme-color" content="#0b0a10">
+<meta property="og:title" content="YouThere?">
+<meta property="og:description" content="Earn points. Spend them interrupting everyone.">
 <meta property="og:image" content="assets/icon-512.png">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <style>
+  /* palette lifted from the app's own UI */
   :root{
-    --bg:#0a0a12;
-    --bg-2:#101020;
-    --card:#14142a;
-    --line:#23233f;
-    --ink:#f5f3fd;
-    --ink-dim:#a6a3c2;
-    --pink:#ff2d6e;
-    --pink-soft:#ff5c8d;
-    --lav:#eae6fa;
-    --radius:20px;
-    --max:1080px;
+    --ink:#0b0a10;
+    --panel:#141220;
+    --panel-2:#1c1930;
+    --line:#2a2542;
+    --dim:#7d7599;
+    --paper:#f0ecfb;
+    --shout:#ff2e88;
+    --coin:#ffe066;
+    --r:10px;
+    --ease:cubic-bezier(.22,.61,.36,1);
+    --max:1060px;
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
   body{
-    margin:0;
-    background:var(--bg);
-    color:var(--ink);
-    font:16px/1.65 "Segoe UI",Inter,system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
-    -webkit-font-smoothing:antialiased;
-    overflow-x:hidden;
+    margin:0;background:var(--ink);color:var(--paper);
+    font:15px/1.6 ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;
   }
-  a{color:var(--pink-soft);text-decoration:none}
+  .display{
+    font-family:"Haettenschweiler","Arial Narrow Bold",Impact,sans-serif;
+    font-weight:400;letter-spacing:.01em;text-transform:uppercase;
+  }
+  ::selection{background:var(--shout);color:#fff}
+  a{color:var(--shout);text-decoration:none}
   a:hover{text-decoration:underline}
-  .wrap{width:100%;max-width:var(--max);margin:0 auto;padding:0 24px}
+  code{font-family:inherit}
+  .wrap{width:100%;max-width:var(--max);margin:0 auto;padding:0 22px}
 
-  /* ---------- decorative background ---------- */
   .glow{
     position:fixed;inset:0;z-index:-1;pointer-events:none;
     background:
-      radial-gradient(60rem 40rem at 15% -10%, rgba(255,45,110,.18), transparent 60%),
-      radial-gradient(50rem 35rem at 95% 10%, rgba(126,92,255,.16), transparent 60%),
-      radial-gradient(40rem 30rem at 50% 110%, rgba(255,45,110,.10), transparent 60%);
+      radial-gradient(55rem 34rem at 12% -12%, rgba(255,46,136,.20), transparent 62%),
+      radial-gradient(45rem 30rem at 96% 6%, rgba(126,92,255,.14), transparent 62%),
+      radial-gradient(40rem 26rem at 50% 112%, rgba(255,224,102,.07), transparent 62%);
   }
 
   /* ---------- header ---------- */
   header{
     position:sticky;top:0;z-index:10;
-    backdrop-filter:blur(12px);
-    background:rgba(10,10,18,.72);
+    background:rgba(11,10,16,.78);backdrop-filter:blur(12px);
     border-bottom:1px solid var(--line);
   }
-  .nav{display:flex;align-items:center;gap:14px;height:66px}
-  .brand{display:flex;align-items:center;gap:11px;font-weight:700;letter-spacing:-.01em;color:var(--ink)}
-  .brand img{width:32px;height:32px;border-radius:9px}
-  .nav-links{margin-left:auto;display:flex;align-items:center;gap:26px;font-size:14.5px}
-  .nav-links a{color:var(--ink-dim)}
-  .nav-links a:hover{color:var(--ink);text-decoration:none}
-  @media(max-width:640px){.nav-links a:not(.btn-sm){display:none}}
+  .nav{display:flex;align-items:center;gap:14px;height:64px}
+  .brand{display:flex;align-items:center;gap:10px;color:var(--paper);font-size:19px}
+  .brand img{width:30px;height:30px;border-radius:8px}
+  .brand span{color:var(--shout)}
+  .nav-links{margin-left:auto;display:flex;align-items:center;gap:24px;font-size:13.5px}
+  .nav-links a{color:var(--dim)}
+  .nav-links a:hover{color:var(--paper);text-decoration:none}
+  @media(max-width:680px){.nav-links a:not(.btn-sm){display:none}}
   .btn-sm{
-    background:var(--pink);color:#fff;padding:9px 16px;border-radius:999px;
-    font-weight:600;font-size:14px;
+    background:var(--paper);color:var(--ink)!important;padding:9px 16px;border-radius:var(--r);
+    transition:background .18s var(--ease),color .18s var(--ease);
   }
-  .btn-sm:hover{background:var(--pink-soft);text-decoration:none}
+  .btn-sm:hover{background:var(--shout);color:#fff!important;text-decoration:none}
 
   /* ---------- hero ---------- */
-  .hero{padding:88px 0 72px;text-align:center}
+  .hero{padding:78px 0 66px;text-align:center}
   .hero-icon{
-    width:132px;height:132px;border-radius:30px;margin-bottom:30px;
-    box-shadow:0 30px 70px -20px rgba(255,45,110,.45), 0 0 0 1px rgba(255,255,255,.06);
-    animation:rise .7s cubic-bezier(.2,.8,.2,1) both;
+    width:120px;height:120px;border-radius:27px;margin-bottom:26px;
+    box-shadow:0 28px 64px -20px rgba(255,46,136,.5), 0 0 0 1px rgba(255,255,255,.06);
+    animation:rise .7s var(--ease) both;
   }
   @keyframes rise{from{opacity:0;transform:translateY(16px) scale(.94)}to{opacity:1;transform:none}}
-  .pill{
-    display:inline-flex;align-items:center;gap:8px;
-    border:1px solid var(--line);background:rgba(255,255,255,.03);
-    color:var(--ink-dim);padding:6px 14px;border-radius:999px;font-size:13px;margin-bottom:22px;
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:9px;
+    border:1px solid var(--line);background:var(--panel);
+    color:var(--dim);padding:6px 14px;border-radius:999px;
+    font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:22px;
   }
-  .dot{width:7px;height:7px;border-radius:50%;background:var(--pink);box-shadow:0 0 10px var(--pink)}
-  h1{
-    font-size:clamp(2.6rem,7vw,4.4rem);line-height:1.03;margin:0 0 18px;
-    letter-spacing:-.035em;font-weight:800;
-  }
-  h1 .accent{
-    background:linear-gradient(100deg,var(--pink),#ff8ab0 55%,#b48cff);
-    -webkit-background-clip:text;background-clip:text;color:transparent;
-  }
-  .lede{
-    font-size:clamp(1.05rem,2.3vw,1.28rem);color:var(--ink-dim);
-    max-width:620px;margin:0 auto 36px;
-  }
-  .cta{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;align-items:center}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--shout);box-shadow:0 0 10px var(--shout)}
+  h1{font-size:clamp(3.2rem,10vw,6rem);line-height:.92;margin:0 0 16px}
+  h1 em{font-style:normal;color:var(--shout)}
+  .lede{font-size:clamp(1rem,2.2vw,1.15rem);color:var(--dim);max-width:560px;margin:0 auto 34px}
+  .cta{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center}
   .btn{
-    display:inline-flex;align-items:center;gap:11px;
-    padding:16px 30px;border-radius:14px;font-weight:700;font-size:16.5px;
-    border:1px solid transparent;transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+    display:inline-flex;align-items:center;gap:10px;
+    padding:14px 26px;border-radius:var(--r);border:1px solid transparent;font-size:15px;
+    transition:transform .12s var(--ease),background .18s var(--ease),color .18s var(--ease),border-color .18s var(--ease);
   }
-  .btn:hover{text-decoration:none;transform:translateY(-2px)}
-  .btn-primary{
-    background:linear-gradient(180deg,var(--pink),#e01458);color:#fff;
-    box-shadow:0 16px 40px -12px rgba(255,45,110,.7);
+  .btn:hover{text-decoration:none}
+  .btn:active{transform:scale(.97)}
+  .btn-primary{background:var(--paper);color:var(--ink)}
+  .btn-primary:hover{background:var(--shout);color:#fff}
+  .btn-ghost{background:transparent;color:var(--paper);border-color:var(--line)}
+  .btn-ghost:hover{background:var(--panel-2);border-color:#3a3358}
+  .cost{
+    display:inline-block;margin-left:2px;padding:2px 7px;border-radius:6px;
+    background:rgba(255,224,102,.14);color:var(--coin);font-size:11px;letter-spacing:.06em;
   }
-  .btn-primary:hover{box-shadow:0 22px 50px -12px rgba(255,45,110,.85)}
-  .btn-ghost{background:rgba(255,255,255,.04);border-color:var(--line);color:var(--ink)}
-  .btn-ghost:hover{background:rgba(255,255,255,.08)}
-  .meta{margin-top:18px;font-size:13.5px;color:var(--ink-dim)}
-  .meta code{
-    font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-size:12px;
-    color:#c9c5e6;word-break:break-all;
-  }
+  .meta{margin-top:18px;font-size:12.5px;color:var(--dim);line-height:1.9}
+  .meta b{color:#a99fd0;font-weight:400}
+  .hash{font-size:11px;word-break:break-all;color:#6d6690}
 
   /* ---------- sections ---------- */
-  section{padding:66px 0;border-top:1px solid var(--line)}
-  h2{font-size:clamp(1.7rem,3.6vw,2.3rem);letter-spacing:-.025em;margin:0 0 12px;font-weight:750}
-  .sub{color:var(--ink-dim);margin:0 0 38px;max-width:560px}
-  .grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(258px,1fr))}
+  section{padding:60px 0;border-top:1px solid var(--line)}
+  h2{font-size:clamp(1.9rem,4.6vw,2.9rem);margin:0 0 10px;line-height:1}
+  .sub{color:var(--dim);margin:0 0 34px;max-width:560px;font-size:14.5px}
+  .grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
   .card{
-    background:linear-gradient(180deg,var(--card),var(--bg-2));
-    border:1px solid var(--line);border-radius:var(--radius);padding:26px;
-    transition:border-color .2s ease, transform .2s ease;
+    background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:24px;
+    transition:border-color .18s var(--ease),transform .18s var(--ease);
   }
-  .card:hover{border-color:#37375e;transform:translateY(-3px)}
-  .card h3{margin:0 0 8px;font-size:1.06rem;letter-spacing:-.01em}
-  .card p{margin:0;color:var(--ink-dim);font-size:14.6px}
+  .card:hover{border-color:#3a3358;transform:translateY(-3px)}
+  .card h3{margin:0 0 8px;font-size:1.35rem;line-height:1}
+  .card p{margin:0;color:var(--dim);font-size:13.8px}
   .ico{
-    width:42px;height:42px;border-radius:12px;display:grid;place-items:center;margin-bottom:16px;
-    background:rgba(255,45,110,.12);border:1px solid rgba(255,45,110,.25);
+    width:38px;height:38px;border-radius:10px;display:grid;place-items:center;margin-bottom:15px;
+    background:var(--panel-2);border:1px solid var(--line);
   }
-  .ico svg{width:21px;height:21px;stroke:var(--pink-soft);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .ico svg{width:19px;height:19px;stroke:var(--shout);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+  /* ---------- price list ---------- */
+  .rates{display:grid;gap:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--panel)}
+  .rate{
+    display:flex;align-items:center;gap:14px;padding:15px 20px;
+    border-bottom:1px solid var(--line);font-size:14px;
+  }
+  .rate:last-child{border-bottom:none}
+  .rate b{font-weight:400;color:var(--paper);min-width:132px}
+  .rate span:not(.tag){color:var(--dim);flex:1}
+  .tag{
+    padding:3px 10px;border-radius:6px;font-size:11.5px;letter-spacing:.06em;
+    background:var(--panel-2);color:var(--dim);border:1px solid var(--line);
+  }
+  .tag.coin{background:rgba(255,224,102,.12);color:var(--coin);border-color:rgba(255,224,102,.25)}
+  .tag.free{background:rgba(255,46,136,.12);color:var(--shout);border-color:rgba(255,46,136,.28)}
 
   /* ---------- steps ---------- */
-  ol.steps{list-style:none;counter-reset:s;padding:0;margin:0;display:grid;gap:14px}
+  ol.steps{list-style:none;counter-reset:s;padding:0;margin:0;display:grid;gap:12px}
   ol.steps li{
-    counter-increment:s;position:relative;padding:18px 22px 18px 62px;
-    background:rgba(255,255,255,.025);border:1px solid var(--line);border-radius:14px;
-    color:var(--ink-dim);font-size:15px;
+    counter-increment:s;position:relative;padding:16px 20px 16px 58px;
+    background:var(--panel);border:1px solid var(--line);border-radius:12px;
+    color:var(--dim);font-size:14px;
   }
-  ol.steps li strong{color:var(--ink);font-weight:650}
+  ol.steps li b{color:var(--paper);font-weight:400}
   ol.steps li::before{
-    content:counter(s);position:absolute;left:20px;top:17px;
-    width:26px;height:26px;border-radius:8px;display:grid;place-items:center;
-    background:var(--pink);color:#fff;font-size:13.5px;font-weight:700;
+    content:counter(s);position:absolute;left:18px;top:15px;
+    width:24px;height:24px;border-radius:7px;display:grid;place-items:center;
+    background:var(--shout);color:#fff;font-size:12.5px;
   }
 
-  /* ---------- faq ---------- */
-  details{
-    border:1px solid var(--line);border-radius:14px;padding:0 20px;margin-bottom:12px;
-    background:rgba(255,255,255,.025);
+  /* ---------- changelog ---------- */
+  .log{border-left:2px solid var(--line);padding-left:26px;margin-left:6px}
+  .rel{position:relative;padding-bottom:36px}
+  .rel:last-child{padding-bottom:0}
+  .rel::before{
+    content:"";position:absolute;left:-33px;top:6px;width:12px;height:12px;border-radius:50%;
+    background:var(--panel-2);border:2px solid var(--line);
   }
-  details[open]{border-color:#37375e}
+  .rel.now::before{background:var(--shout);border-color:var(--shout);box-shadow:0 0 12px rgba(255,46,136,.6)}
+  .rel h3{margin:0 0 4px;font-size:1.5rem;line-height:1}
+  .when{color:var(--dim);font-size:12px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px}
+  .rel > p{color:var(--dim);font-size:14px;margin:0 0 16px;max-width:640px}
+  .rel > p b{color:var(--paper);font-weight:400}
+  .chg{margin:0 0 14px;padding:0;list-style:none}
+  .chg li{
+    display:flex;gap:12px;align-items:flex-start;padding:7px 0;
+    color:var(--dim);font-size:13.8px;
+  }
+  .lbl{
+    flex:none;width:74px;text-align:center;padding:2px 0;border-radius:5px;
+    font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;margin-top:2px;
+    background:var(--panel-2);border:1px solid var(--line);color:var(--dim);
+  }
+  .lbl.add{color:#5ee0a0;border-color:rgba(94,224,160,.3);background:rgba(94,224,160,.1)}
+  .lbl.chg{color:var(--coin);border-color:rgba(255,224,102,.3);background:rgba(255,224,102,.1)}
+  .lbl.rm{color:var(--shout);border-color:rgba(255,46,136,.3);background:rgba(255,46,136,.1)}
+
+  /* ---------- faq ---------- */
+  details{border:1px solid var(--line);border-radius:12px;padding:0 20px;margin-bottom:10px;background:var(--panel)}
+  details[open]{border-color:#3a3358}
   summary{
-    cursor:pointer;padding:17px 0;font-weight:620;list-style:none;
+    cursor:pointer;padding:16px 0;list-style:none;font-size:14.5px;
     display:flex;align-items:center;justify-content:space-between;gap:16px;
   }
   summary::-webkit-details-marker{display:none}
-  summary::after{content:"+";color:var(--pink);font-size:20px;line-height:1;font-weight:400}
+  summary::after{content:"+";color:var(--shout);font-size:19px;line-height:1}
   details[open] summary::after{content:"–"}
-  details p{margin:0 0 18px;color:var(--ink-dim);font-size:14.8px}
+  details p{margin:0 0 17px;color:var(--dim);font-size:13.8px}
 
-  /* ---------- download strip ---------- */
   .strip{
-    background:linear-gradient(140deg,rgba(255,45,110,.14),rgba(126,92,255,.12));
-    border:1px solid rgba(255,45,110,.28);border-radius:26px;padding:48px 34px;text-align:center;
+    background:linear-gradient(140deg,rgba(255,46,136,.16),rgba(126,92,255,.12));
+    border:1px solid rgba(255,46,136,.3);border-radius:20px;padding:46px 30px;text-align:center;
   }
-  .strip h2{margin-bottom:10px}
+  .strip .sub{margin:0 auto 26px}
 
   footer{
-    border-top:1px solid var(--line);padding:34px 0 50px;
-    color:#77749a;font-size:13.5px;
-    display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;
+    border-top:1px solid var(--line);padding:30px 0 46px;color:#615a80;font-size:12.5px;
+    display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;
   }
-  footer a{color:#9d99c0}
+  footer a{color:#8a82ab}
 </style>
 </head>
 <body>
@@ -186,11 +218,12 @@
 
 <header>
   <div class="wrap nav">
-    <a class="brand" href="#top"><img src="assets/icon.png" alt="">YouThere</a>
+    <a class="brand display" href="#top"><img src="assets/icon.png" alt="">YouThere<span>?</span></a>
     <nav class="nav-links">
       <a href="#features">Features</a>
+      <a href="#points">Points</a>
       <a href="#install">Install</a>
-      <a href="#faq">FAQ</a>
+      <a href="#changelog">Changelog</a>
       <a class="btn-sm" href="downloads/YouThere.exe" download>Download</a>
     </nav>
   </div>
@@ -199,104 +232,165 @@
 <main id="top">
 
   <div class="wrap hero">
-    <img class="hero-icon" src="assets/icon.png" alt="YouThere app icon" width="132" height="132">
-    <div class="pill"><span class="dot"></span> Latest build for Windows</div>
-    <h1>Still <span class="accent">there</span>?</h1>
-    <p class="lede">YouThere is a small, no-nonsense desktop app for Windows. One file, no installer,
-      no account — download it and double-click.</p>
+    <img class="hero-icon" src="assets/icon.png" alt="YouThere? app icon" width="120" height="120">
+    <div class="eyebrow"><span class="dot"></span> Latest build for Windows</div>
+    <h1 class="display">You<br>There<em>?</em></h1>
+    <p class="lede">Earn points. Spend them interrupting everyone. Voice chat, silly games,
+      and shouts that land on top of whatever your friends are doing.</p>
     <div class="cta">
       <a class="btn btn-primary" href="downloads/YouThere.exe" download>
-        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 12 5 5 5-5"/><path d="M4 21h16"/></svg>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 12 5 5 5-5"/><path d="M4 21h16"/></svg>
         Download for Windows
       </a>
       <a class="btn btn-ghost" href="#install">How to install</a>
     </div>
     <p class="meta">
-      Windows 10 &amp; 11 · 64-bit · 22 MB<br>
-      SHA-256 <code>30806d992898f6596c9e68c85cc3a96355ad2bcd1bf5846a88d4eeee25a49d02</code>
+      <b>Windows 10 &amp; 11 · 64-bit · 16.8 MB · free</b><br>
+      <span class="hash">SHA-256 07b3a8aae05ca56a6bba18906e8289cc6088117c8c153e3ad841b4179e7838b1</span>
     </p>
   </div>
 
   <section id="features">
     <div class="wrap">
-      <h2>Why you'll like it</h2>
-      <p class="sub">Built to stay out of your way — light on disk, light on ceremony.</p>
+      <h2 class="display">What's in it</h2>
+      <p class="sub">Start a party, share the code, and stop pretending you're busy.</p>
       <div class="grid">
         <div class="card">
-          <div class="ico"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z"/></svg></div>
-          <h3>Runs instantly</h3>
-          <p>A single portable <code>.exe</code>. No setup wizard, no registry clutter, nothing left behind when you delete it.</p>
+          <div class="ico"><svg viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10a7 7 0 0 1-14 0"/><path d="M12 17v4"/></svg></div>
+          <h3 class="display">Voice chat</h3>
+          <p>Talk to the whole room. Pick your mic and output, watch your level meter, mute or deafen when the dog starts barking.</p>
         </div>
         <div class="card">
-          <div class="ico"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg></div>
-          <h3>Yours alone</h3>
-          <p>No sign-up, no telemetry dashboards, no ads. It runs on your machine and stays on your machine.</p>
-        </div>
-        <div class="card">
-          <div class="ico"><svg viewBox="0 0 24 24"><path d="M4 6h16"/><path d="M4 12h12"/><path d="M4 18h8"/></svg></div>
-          <h3>Clean interface</h3>
-          <p>A focused window with everything one click away. Dark by default, so it fits right in at 2am.</p>
-        </div>
-        <div class="card">
-          <div class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v5l3 2"/></svg></div>
-          <h3>Tiny footprint</h3>
-          <p>About 22 MB on disk and quiet in the background — it won't fight your laptop for memory.</p>
-        </div>
-        <div class="card">
-          <div class="ico"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v5h-5"/></svg></div>
-          <h3>Easy updates</h3>
-          <p>New version? Download the fresh file and replace the old one. That's the entire update process.</p>
+          <div class="ico"><svg viewBox="0 0 24 24"><path d="M3 11v2a1 1 0 0 0 1 1h2l4 4V6L6 10H4a1 1 0 0 0-1 1Z"/><path d="M16 9a4 4 0 0 1 0 6"/><path d="M19 6a8 8 0 0 1 0 12"/></svg></div>
+          <h3 class="display">Shouts</h3>
+          <p>Put a line of text on everyone's screen — over their game, their spreadsheet, whatever. Costs 10 points, worth every one.</p>
         </div>
         <div class="card">
           <div class="ico"><svg viewBox="0 0 24 24"><path d="M8 10h.01"/><path d="M12 10h.01"/><path d="M16 10h.01"/><path d="M21 12a8 8 0 0 1-8 8H7l-4 3V12a8 8 0 0 1 8-8h2a8 8 0 0 1 8 8Z"/></svg></div>
-          <h3>Feedback welcome</h3>
-          <p>Found a bug or want a feature? Open an issue on GitHub — it genuinely shapes what ships next.</p>
+          <h3 class="display">Are you there?</h3>
+          <p>The free poke. One click and a banner appears in front of whoever wandered off. Room chat is free too.</p>
         </div>
+        <div class="card">
+          <div class="ico"><svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="4"/><path d="M7 12h4"/><path d="M9 10v4"/><path d="M16 11h.01"/><path d="M18.5 13.5h.01"/></svg></div>
+          <h3 class="display">Games for points</h3>
+          <p>Reflex test on your own, or challenge someone to a Reaction duel or Tic-tac-toe. Winners get the points, losers get shouted at.</p>
+        </div>
+        <div class="card">
+          <div class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v10"/><path d="M15 9.5a2.5 2.5 0 0 0-3-2c-2 0-3 3 0 4s2 4 0 4a2.5 2.5 0 0 1-3-2"/></svg></div>
+          <h3 class="display">Voice notes</h3>
+          <p>Save up 100 points to record something and drop it straight into the room. They get a prompt; they can still say no.</p>
+        </div>
+        <div class="card">
+          <div class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M7 8h10"/><path d="M7 12h6"/></svg></div>
+          <h3 class="display">Desktop overlay</h3>
+          <p>Banners float on top of everything and clicks pass straight through — so nothing you're doing gets interrupted, except your concentration.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="points">
+    <div class="wrap">
+      <h2 class="display">The economy</h2>
+      <p class="sub">Win points off your friends, then spend them being unbearable.</p>
+      <div class="rates">
+        <div class="rate"><b>Chat</b><span>Ordinary messages in the room</span><span class="tag free">free</span></div>
+        <div class="rate"><b>Are you there?</b><span>Poke everyone with a banner</span><span class="tag free">free</span></div>
+        <div class="rate"><b>Shout</b><span>Your text, full width, on every screen</span><span class="tag coin">10</span></div>
+        <div class="rate"><b>Record</b><span>A voice note that plays for the room</span><span class="tag coin">100</span></div>
+        <div class="rate"><b>Reflex test</b><span>Solo — beat the light</span><span class="tag">earn</span></div>
+        <div class="rate"><b>Reaction duel</b><span>Head to head, fastest finger takes it</span><span class="tag">earn</span></div>
+        <div class="rate"><b>Tic-tac-toe</b><span>Best of pride</span><span class="tag">earn</span></div>
       </div>
     </div>
   </section>
 
   <section id="install">
     <div class="wrap">
-      <h2>Install in four steps</h2>
+      <h2 class="display">Getting in</h2>
       <p class="sub">Under a minute, start to finish.</p>
       <ol class="steps">
-        <li><strong>Download</strong> <code>YouThere.exe</code> using the button above.</li>
-        <li><strong>Move it somewhere sensible</strong> — your Desktop or a folder like <code>C:\Apps\YouThere</code>. It runs from wherever it sits.</li>
-        <li><strong>Double-click to run.</strong> On first launch Windows SmartScreen may warn you about an unknown publisher — click <em>More info</em> → <em>Run anyway</em>. That's because the build isn't code-signed yet, not because anything is wrong with it.</li>
-        <li><strong>Pin it</strong> to your taskbar if you'll use it often. To uninstall, just delete the file.</li>
+        <li><b>Download</b> <code>YouThere.exe</code> with the button above.</li>
+        <li><b>Double-click it.</b> Windows SmartScreen may warn about an unknown publisher — choose <em>More info</em> → <em>Run anyway</em>. The build isn't code-signed yet; you can check the SHA-256 above if you'd rather be sure.</li>
+        <li><b>Confirm the server</b> in the little launcher window. Everyone in your group connects to the same one. It's remembered for next time, and a free host can take about 30 seconds to wake up.</li>
+        <li><b>Pick a name</b>, then start a party or join one with a code. To uninstall, just delete the file.</li>
       </ol>
+    </div>
+  </section>
+
+  <section id="changelog">
+    <div class="wrap">
+      <h2 class="display">Changelog</h2>
+      <p class="sub">What changed, most recent first. Also in <a href="CHANGELOG.md">CHANGELOG.md</a>.</p>
+      <div class="log">
+
+        <div class="rel now">
+          <h3 class="display">Latest build</h3>
+          <div class="when">2026-08-14 · current download</div>
+          <p><b>Parties now live on a hosted server.</b> The client talks to the YouThere? server
+            online instead of running one on your machine, so a party is visible to everyone
+            wherever they are — not just to people on the same network.</p>
+          <ul class="chg">
+            <li><span class="lbl add">Added</span><span>Your server address is remembered in <code>~/.youthere.json</code>, so the launcher pre-fills it next time.</span></li>
+            <li><span class="lbl add">Added</span><span>The launcher checks the server is answering before opening the app, and says so when a free host is still waking up.</span></li>
+            <li><span class="lbl add">Added</span><span>Secure <code>wss://</code> connections for remote servers; plain <code>ws://</code> still works for localhost testing.</span></li>
+            <li><span class="lbl chg">Changed</span><span>The launcher is now a single "which server?" field instead of the old host-or-join screen.</span></li>
+            <li><span class="lbl chg">Changed</span><span>Download is about 5 MB smaller — 22 MB down to 16.8 MB.</span></li>
+            <li><span class="lbl rm">Removed</span><span>The bundled server. No more hosting from your own PC, sharing your LAN IP, or opening firewall ports to get friends in.</span></li>
+          </ul>
+        </div>
+
+        <div class="rel">
+          <h3 class="display">Previous build</h3>
+          <div class="when">First public release</div>
+          <p>Shipped with its own server built in: one person hosted the party on their machine
+            and everyone else joined over the local network using the host's IP address.</p>
+          <ul class="chg">
+            <li><span class="lbl add">Added</span><span>Party browser, party codes, and password-protected parties.</span></li>
+            <li><span class="lbl add">Added</span><span>Voice chat with mic and output pickers, level meter, mute and deafen.</span></li>
+            <li><span class="lbl add">Added</span><span>Room chat, free pokes, full-screen Shouts, and recorded voice notes.</span></li>
+            <li><span class="lbl add">Added</span><span>Points — chat free, Shout 10, Record 100 — earned through Reflex test, Reaction duel and Tic-tac-toe.</span></li>
+            <li><span class="lbl add">Added</span><span>The click-through desktop overlay.</span></li>
+          </ul>
+        </div>
+
+      </div>
     </div>
   </section>
 
   <section id="faq">
     <div class="wrap">
-      <h2>Questions</h2>
+      <h2 class="display">Questions</h2>
       <p class="sub">The ones people actually ask.</p>
 
       <details open>
         <summary>Why does Windows show a security warning?</summary>
-        <p>The app isn't signed with a paid code-signing certificate, so SmartScreen flags it as coming from an unknown publisher. Choose <em>More info</em> → <em>Run anyway</em>. You can always verify the download first by checking its SHA-256 against the hash listed at the top of this page.</p>
+        <p>The build isn't signed with a paid code-signing certificate, so SmartScreen calls it an unknown publisher. Choose <em>More info</em> → <em>Run anyway</em>. If you want to check the file first, verify its SHA-256 against the hash at the top of this page.</p>
       </details>
 
       <details>
         <summary>How do I check the SHA-256 hash?</summary>
-        <p>Open PowerShell in your downloads folder and run <code>Get-FileHash .\YouThere.exe -Algorithm SHA256</code>. The result should match the hash shown in the hero section, character for character.</p>
+        <p>In PowerShell, from your downloads folder: <code>Get-FileHash .\YouThere.exe -Algorithm SHA256</code>. It should match the hash in the hero section character for character.</p>
+      </details>
+
+      <details>
+        <summary>Do my friends need to be on my network?</summary>
+        <p>Not anymore. As of the latest build everyone connects to the same hosted server, so a party works across the internet. Just make sure you all type in the same server address.</p>
+      </details>
+
+      <details>
+        <summary>The launcher is stuck on "Checking…"</summary>
+        <p>Free server hosts go to sleep when nobody's using them and take roughly 30 seconds to wake up. Give it a moment and try Connect again. If it still fails, double-check the address for typos.</p>
       </details>
 
       <details>
         <summary>Is there a Mac or Linux version?</summary>
-        <p>Not right now — this build is Windows 64-bit only. If you'd like one, say so in a GitHub issue so it can be prioritised.</p>
+        <p>Not yet — this build is Windows 64-bit only. Open an issue on GitHub if you want one.</p>
       </details>
 
       <details>
-        <summary>Does it cost anything?</summary>
-        <p>No. It's free to download and free to use.</p>
-      </details>
-
-      <details>
-        <summary>How do I remove it?</summary>
-        <p>Delete <code>YouThere.exe</code>. There's no installer and no uninstaller, because there's nothing else to clean up.</p>
+        <summary>How do I uninstall it?</summary>
+        <p>Delete <code>YouThere.exe</code>. There's no installer, so there's nothing else to clean up apart from <code>~/.youthere.json</code>, which just remembers your server address.</p>
       </details>
     </div>
   </section>
@@ -304,11 +398,11 @@
   <section>
     <div class="wrap">
       <div class="strip">
-        <h2>Ready when you are</h2>
-        <p class="sub" style="margin:0 auto 28px">One file. One click. Windows 10 and 11.</p>
+        <h2 class="display">Are you there?</h2>
+        <p class="sub">One file. One click. Windows 10 and 11.</p>
         <a class="btn btn-primary" href="downloads/YouThere.exe" download>
-          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 12 5 5 5-5"/><path d="M4 21h16"/></svg>
-          Download YouThere
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 12 5 5 5-5"/><path d="M4 21h16"/></svg>
+          Download YouThere<span class="cost">free</span>
         </a>
       </div>
     </div>
@@ -317,8 +411,8 @@
 </main>
 
 <footer class="wrap">
-  <span>© <span id="yr">2026</span> YouThere</span>
-  <span><a href="https://github.com/jakubsenczyszyn2015-netizen/youthere">GitHub</a> · <a href="downloads/YouThere.exe" download>Direct download</a></span>
+  <span>© <span id="yr">2026</span> YouThere?</span>
+  <span><a href="https://github.com/jakubsenczyszyn2015-netizen/youthere">GitHub</a> · <a href="CHANGELOG.md">Changelog</a> · <a href="downloads/YouThere.exe" download>Direct download</a></span>
 </footer>
 
 <script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
