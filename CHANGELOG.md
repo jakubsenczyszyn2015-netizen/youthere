@@ -4,7 +4,24 @@ All notable changes to the YouThere? desktop client.
 
 ## Latest build — 2026-08-14
 
-**Parties now live on a hosted server.** The client talks to the YouThere? server
+**YouThere? now runs on macOS and Linux, not just Windows.** The overlay used to share a
+process with the app window, and tkinter and the webview toolkit each insist on owning the
+main thread of whatever process they're in — fine on Windows, a segfault everywhere else.
+The overlay now gets a process of its own, which is what makes the other two platforms
+possible.
+
+### Added
+- macOS build for Apple Silicon, shipped as a `YouThere.app` bundle.
+- Linux build, distributed over a transfer link because it's too big to host in the repo.
+- Failures open a window explaining what went wrong instead of quitting silently —
+  including a nudge to install WebKitGTK when that's what Linux is missing.
+
+### Changed
+- The overlay runs as its own process rather than a background thread.
+
+## Hosted server — Windows only
+
+**Parties moved to a hosted server.** The client talks to the YouThere? server
 online instead of running one on your machine, so a party is visible to everyone
 wherever they are — not just to people on the same network.
 
@@ -17,7 +34,7 @@ wherever they are — not just to people on the same network.
 
 ### Changed
 - The launcher is now a single "which server?" field instead of the host/join screen.
-- Download is about 5 MB smaller — 22 MB → 16.8 MB.
+- Download shrank by about 5 MB once the server came out of it.
 
 ### Removed
 - The bundled server. You no longer host from your own PC, share your LAN IP, or open

@@ -131,6 +131,13 @@
   }
   .ico svg{width:19px;height:19px;stroke:var(--shout);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 
+  /* ---------- platform cards ---------- */
+  .plat{display:flex;flex-direction:column}
+  .plat p{margin-bottom:20px;flex:1}
+  .plat .dl{justify-content:center;width:100%;font-size:14px;padding:12px 18px}
+  .fileinfo{margin-top:12px;font-size:11.5px;color:#6d6690;line-height:1.7}
+  .fileinfo .hash{word-break:break-all}
+
   /* ---------- price list ---------- */
   .rates{display:grid;gap:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--panel)}
   .rate{
@@ -224,7 +231,7 @@
       <a href="#points">Points</a>
       <a href="#install">Install</a>
       <a href="#changelog">Changelog</a>
-      <a class="btn-sm" href="downloads/YouThere.exe" download>Download</a>
+      <a class="btn-sm" href="#download">Download</a>
     </nav>
   </div>
 </header>
@@ -233,22 +240,53 @@
 
   <div class="wrap hero">
     <img class="hero-icon" src="assets/icon.png" alt="YouThere? app icon" width="120" height="120">
-    <div class="eyebrow"><span class="dot"></span> Latest build for Windows</div>
+    <div class="eyebrow"><span class="dot"></span> Now on Windows, macOS &amp; Linux</div>
     <h1 class="display">You<br>There<em>?</em></h1>
     <p class="lede">Earn points. Spend them interrupting everyone. Voice chat, silly games,
       and shouts that land on top of whatever your friends are doing.</p>
     <div class="cta">
-      <a class="btn btn-primary" href="downloads/YouThere.exe" download>
+      <a class="btn btn-primary" id="pick" href="#download">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 12 5 5 5-5"/><path d="M4 21h16"/></svg>
-        Download for Windows
+        <span id="pickLabel">Download</span>
       </a>
-      <a class="btn btn-ghost" href="#install">How to install</a>
+      <a class="btn btn-ghost" href="#download">All platforms</a>
     </div>
-    <p class="meta">
-      <b>Windows 10 &amp; 11 · 64-bit · 16.8 MB · free</b><br>
-      <span class="hash">SHA-256 07b3a8aae05ca56a6bba18906e8289cc6088117c8c153e3ad841b4179e7838b1</span>
-    </p>
+    <p class="meta"><b id="pickMeta">Windows · macOS · Linux · free</b></p>
   </div>
+
+  <section id="download">
+    <div class="wrap">
+      <h2 class="display">Pick your machine</h2>
+      <p class="sub">Same app everywhere — everyone lands in the same party.</p>
+      <div class="grid">
+
+        <div class="card plat">
+          <div class="ico"><svg viewBox="0 0 24 24"><path d="M3 5.5 10 4.5v7H3Z"/><path d="M11.5 4.3 21 3v8.5h-9.5Z"/><path d="M3 12.5h7v7L3 18.5Z"/><path d="M11.5 12.5H21V21l-9.5-1.3Z"/></svg></div>
+          <h3 class="display">Windows</h3>
+          <p>Windows 10 &amp; 11, 64-bit. One portable <code>.exe</code> — no installer.</p>
+          <a class="btn btn-primary dl" href="downloads/YouThere.exe" download>Download .exe</a>
+          <div class="fileinfo">16.9 MB · <span class="hash">SHA-256 2f5c6c412b1ab70a13ec70d4bd601b7c479b445d503eccbc52a34e130406c6fe</span></div>
+        </div>
+
+        <div class="card plat">
+          <div class="ico"><svg viewBox="0 0 24 24"><path d="M16.3 12.7c0-2.4 2-3.5 2.1-3.6-1.1-1.7-2.9-1.9-3.6-1.9-1.5-.2-3 .9-3.7.9-.8 0-2-.9-3.2-.8-1.7 0-3.2 1-4 2.5-1.7 3-.4 7.4 1.2 9.8.8 1.2 1.8 2.5 3 2.4 1.2 0 1.6-.8 3.1-.8s1.9.8 3.2.7c1.3 0 2.1-1.2 2.9-2.3.9-1.3 1.3-2.6 1.3-2.7 0 0-2.4-1-2.3-3.8Z"/><path d="M14.2 4.8c.6-.8 1.1-1.9 1-3-.9 0-2.1.6-2.8 1.5-.6.7-1.1 1.9-1 3 1 0 2.1-.6 2.8-1.5Z"/></svg></div>
+          <h3 class="display">macOS</h3>
+          <p>Apple Silicon (M1 and later). A <code>.app</code> bundle in a zip — unzip and drag it to Applications.</p>
+          <a class="btn btn-primary dl" href="downloads/YouThere-mac.zip" download>Download .zip</a>
+          <div class="fileinfo">14.1 MB · <span class="hash">SHA-256 1eb62628c388627ed80f5422680abc643be871b5f7bfca6faa27605ada559ad6</span></div>
+        </div>
+
+        <div class="card plat">
+          <div class="ico"><svg viewBox="0 0 24 24"><path d="M12 2c2.2 0 3.4 1.8 3.4 4.3 0 1.8.4 2.6 1.4 4 1.3 1.8 2.6 3.4 2.6 5.4 0 1.6-1 2.6-2.3 2.6-1 0-1.6.7-1.9 1.2-.5.9-1.7 1.5-3.2 1.5s-2.7-.6-3.2-1.5c-.3-.5-.9-1.2-1.9-1.2-1.3 0-2.3-1-2.3-2.6 0-2 1.3-3.6 2.6-5.4 1-1.4 1.4-2.2 1.4-4C8.6 3.8 9.8 2 12 2Z"/><path d="M10.4 8.2h.01"/><path d="M13.6 8.2h.01"/><path d="M10.9 10.6c.7.6 1.5.6 2.2 0"/></svg></div>
+          <h3 class="display">Linux</h3>
+          <p>Too big to host here, so it lives on a transfer link. Needs WebKitGTK — see the FAQ if the window won't open.</p>
+          <a class="btn btn-primary dl" href="https://fromsmash.com/lenex" target="_blank" rel="noopener">Get the Linux build</a>
+          <div class="fileinfo">Hosted on Smash — transfer links expire, ask for a fresh one if it's dead.</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
 
   <section id="features">
     <div class="wrap">
@@ -310,8 +348,8 @@
       <h2 class="display">Getting in</h2>
       <p class="sub">Under a minute, start to finish.</p>
       <ol class="steps">
-        <li><b>Download</b> <code>YouThere.exe</code> with the button above.</li>
-        <li><b>Double-click it.</b> Windows SmartScreen may warn about an unknown publisher — choose <em>More info</em> → <em>Run anyway</em>. The build isn't code-signed yet; you can check the SHA-256 above if you'd rather be sure.</li>
+        <li><b>Grab the build for your machine</b> from the section above.</li>
+        <li><b>Open it.</b> On Windows, double-click the <code>.exe</code>; SmartScreen may call it an unknown publisher, so choose <em>More info</em> → <em>Run anyway</em>. On macOS, unzip and drag <code>YouThere.app</code> to Applications, then right-click it → <em>Open</em> the first time. Neither build is code-signed yet — check the SHA-256 above if you'd rather be sure.</li>
         <li><b>Confirm the server</b> in the little launcher window. Everyone in your group connects to the same one. It's remembered for next time, and a free host can take about 30 seconds to wake up.</li>
         <li><b>Pick a name</b>, then start a party or join one with a code. To uninstall, just delete the file.</li>
       </ol>
@@ -325,9 +363,24 @@
       <div class="log">
 
         <div class="rel now">
-          <h3 class="display">Latest build</h3>
+          <h3 class="display">Cross-platform build</h3>
           <div class="when">2026-08-14 · current download</div>
-          <p><b>Parties now live on a hosted server.</b> The client talks to the YouThere? server
+          <p><b>YouThere? now runs on macOS and Linux, not just Windows.</b> The overlay used to
+            share a process with the app window, and tkinter and the webview toolkit each insist
+            on owning the main thread — fine on Windows, a segfault everywhere else. The overlay
+            now gets a process of its own, which is what makes the other two platforms possible.</p>
+          <ul class="chg">
+            <li><span class="lbl add">Added</span><span>macOS build for Apple Silicon, shipped as a <code>YouThere.app</code> bundle.</span></li>
+            <li><span class="lbl add">Added</span><span>Linux build, distributed over a transfer link because it's too big to host here.</span></li>
+            <li><span class="lbl add">Added</span><span>Failures now open a window explaining what went wrong instead of quitting silently — including a nudge to install WebKitGTK when that's what Linux is missing.</span></li>
+            <li><span class="lbl chg">Changed</span><span>The overlay runs as its own process rather than a background thread.</span></li>
+          </ul>
+        </div>
+
+        <div class="rel">
+          <h3 class="display">Hosted server</h3>
+          <div class="when">Windows only</div>
+          <p><b>Parties moved to a hosted server.</b> The client talks to the YouThere? server
             online instead of running one on your machine, so a party is visible to everyone
             wherever they are — not just to people on the same network.</p>
           <ul class="chg">
@@ -335,7 +388,7 @@
             <li><span class="lbl add">Added</span><span>The launcher checks the server is answering before opening the app, and says so when a free host is still waking up.</span></li>
             <li><span class="lbl add">Added</span><span>Secure <code>wss://</code> connections for remote servers; plain <code>ws://</code> still works for localhost testing.</span></li>
             <li><span class="lbl chg">Changed</span><span>The launcher is now a single "which server?" field instead of the old host-or-join screen.</span></li>
-            <li><span class="lbl chg">Changed</span><span>Download is about 5 MB smaller — 22 MB down to 16.8 MB.</span></li>
+            <li><span class="lbl chg">Changed</span><span>Download shrank by about 5 MB once the server came out of it.</span></li>
             <li><span class="lbl rm">Removed</span><span>The bundled server. No more hosting from your own PC, sharing your LAN IP, or opening firewall ports to get friends in.</span></li>
           </ul>
         </div>
@@ -369,8 +422,23 @@
       </details>
 
       <details>
+        <summary>macOS says the app is damaged or from an unidentified developer</summary>
+        <p>Gatekeeper doesn't trust unsigned apps downloaded from the web. Right-click <code>YouThere.app</code> and choose <em>Open</em>, then confirm — you only need to do it once. If macOS still refuses, run <code>xattr -dr com.apple.quarantine /Applications/YouThere.app</code> in Terminal.</p>
+      </details>
+
+      <details>
+        <summary>Which Macs does it run on?</summary>
+        <p>Apple Silicon only — M1 and later. There's no Intel build yet, so it won't run on older Macs.</p>
+      </details>
+
+      <details>
+        <summary>Nothing opens on Linux</summary>
+        <p>The app window needs WebKitGTK, which most distros don't ship by default. On Debian and Ubuntu: <code>sudo apt install gir1.2-webkit2-4.0</code>. The app will tell you the same thing in a window if it can't start.</p>
+      </details>
+
+      <details>
         <summary>How do I check the SHA-256 hash?</summary>
-        <p>In PowerShell, from your downloads folder: <code>Get-FileHash .\YouThere.exe -Algorithm SHA256</code>. It should match the hash in the hero section character for character.</p>
+        <p>Windows, in PowerShell: <code>Get-FileHash .\YouThere.exe -Algorithm SHA256</code>. macOS or Linux: <code>shasum -a 256 YouThere-mac.zip</code>. It should match the hash on the download card character for character.</p>
       </details>
 
       <details>
@@ -384,13 +452,13 @@
       </details>
 
       <details>
-        <summary>Is there a Mac or Linux version?</summary>
-        <p>Not yet — this build is Windows 64-bit only. Open an issue on GitHub if you want one.</p>
+        <summary>Can Windows, Mac and Linux people be in the same party?</summary>
+        <p>Yes. It's the same app on all three, and everyone connects to the same server, so it makes no difference what anyone is running.</p>
       </details>
 
       <details>
         <summary>How do I uninstall it?</summary>
-        <p>Delete <code>YouThere.exe</code>. There's no installer, so there's nothing else to clean up apart from <code>~/.youthere.json</code>, which just remembers your server address.</p>
+        <p>Delete the app — <code>YouThere.exe</code>, or <code>YouThere.app</code> on macOS. There's no installer, so nothing else is left behind apart from <code>~/.youthere.json</code>, which just remembers your server address.</p>
       </details>
     </div>
   </section>
@@ -399,8 +467,8 @@
     <div class="wrap">
       <div class="strip">
         <h2 class="display">Are you there?</h2>
-        <p class="sub">One file. One click. Windows 10 and 11.</p>
-        <a class="btn btn-primary" href="downloads/YouThere.exe" download>
+        <p class="sub">Windows, macOS and Linux. Still free, still unbearable.</p>
+        <a class="btn btn-primary" href="#download">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 12 5 5 5-5"/><path d="M4 21h16"/></svg>
           Download YouThere<span class="cost">free</span>
         </a>
@@ -412,9 +480,33 @@
 
 <footer class="wrap">
   <span>© <span id="yr">2026</span> YouThere?</span>
-  <span><a href="https://github.com/jakubsenczyszyn2015-netizen/youthere">GitHub</a> · <a href="CHANGELOG.md">Changelog</a> · <a href="downloads/YouThere.exe" download>Direct download</a></span>
+  <span><a href="https://github.com/jakubsenczyszyn2015-netizen/youthere">GitHub</a> · <a href="CHANGELOG.md">Changelog</a> · <a href="#download">Downloads</a></span>
 </footer>
 
-<script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
+<script>
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+/* Point the hero button at whatever the visitor is probably running.
+   Falls back to the download section, which is where it already goes. */
+(function () {
+  var ua = navigator.userAgent;
+  var builds = {
+    win:   { label: 'Download for Windows', meta: 'Windows 10 & 11 · 64-bit · 16.9 MB · free', href: 'downloads/YouThere.exe' },
+    mac:   { label: 'Download for macOS',   meta: 'Apple Silicon · 14.1 MB · free',            href: 'downloads/YouThere-mac.zip' },
+    linux: { label: 'Download for Linux',   meta: 'Hosted on Smash · free',                    href: 'https://fromsmash.com/lenex' }
+  };
+  var key = /Win/i.test(ua) ? 'win'
+          : /Mac|iPhone|iPad/i.test(ua) ? 'mac'
+          : /Linux|X11|CrOS/i.test(ua) ? 'linux'
+          : null;
+  if (!key) return;
+  var b = builds[key], a = document.getElementById('pick');
+  a.href = b.href;
+  document.getElementById('pickLabel').textContent = b.label;
+  document.getElementById('pickMeta').textContent = b.meta;
+  if (key === 'linux') { a.target = '_blank'; a.rel = 'noopener'; }
+  else { a.setAttribute('download', ''); }
+})();
+</script>
 </body>
 </html>
