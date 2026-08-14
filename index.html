@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>YouThere — download</title>
+<meta name="description" content="YouThere is a lightweight Windows desktop app. Download the latest build — no installer, no account, just run it.">
+<link rel="icon" href="assets/favicon.ico" sizes="any">
+<link rel="icon" href="assets/icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<meta name="theme-color" content="#0a0a12">
+<meta property="og:title" content="YouThere">
+<meta property="og:description" content="A lightweight Windows desktop app. Download and run — no installer required.">
+<meta property="og:image" content="assets/icon-512.png">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+  :root{
+    --bg:#0a0a12;
+    --bg-2:#101020;
+    --card:#14142a;
+    --line:#23233f;
+    --ink:#f5f3fd;
+    --ink-dim:#a6a3c2;
+    --pink:#ff2d6e;
+    --pink-soft:#ff5c8d;
+    --lav:#eae6fa;
+    --radius:20px;
+    --max:1080px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font:16px/1.65 "Segoe UI",Inter,system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:var(--pink-soft);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{width:100%;max-width:var(--max);margin:0 auto;padding:0 24px}
+
+  /* ---------- decorative background ---------- */
+  .glow{
+    position:fixed;inset:0;z-index:-1;pointer-events:none;
+    background:
+      radial-gradient(60rem 40rem at 15% -10%, rgba(255,45,110,.18), transparent 60%),
+      radial-gradient(50rem 35rem at 95% 10%, rgba(126,92,255,.16), transparent 60%),
+      radial-gradient(40rem 30rem at 50% 110%, rgba(255,45,110,.10), transparent 60%);
+  }
+
+  /* ---------- header ---------- */
+  header{
+    position:sticky;top:0;z-index:10;
+    backdrop-filter:blur(12px);
+    background:rgba(10,10,18,.72);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{display:flex;align-items:center;gap:14px;height:66px}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:700;letter-spacing:-.01em;color:var(--ink)}
+  .brand img{width:32px;height:32px;border-radius:9px}
+  .nav-links{margin-left:auto;display:flex;align-items:center;gap:26px;font-size:14.5px}
+  .nav-links a{color:var(--ink-dim)}
+  .nav-links a:hover{color:var(--ink);text-decoration:none}
+  @media(max-width:640px){.nav-links a:not(.btn-sm){display:none}}
+  .btn-sm{
+    background:var(--pink);color:#fff;padding:9px 16px;border-radius:999px;
+    font-weight:600;font-size:14px;
+  }
+  .btn-sm:hover{background:var(--pink-soft);text-decoration:none}
+
+  /* ---------- hero ---------- */
+  .hero{padding:88px 0 72px;text-align:center}
+  .hero-icon{
+    width:132px;height:132px;border-radius:30px;margin-bottom:30px;
+    box-shadow:0 30px 70px -20px rgba(255,45,110,.45), 0 0 0 1px rgba(255,255,255,.06);
+    animation:rise .7s cubic-bezier(.2,.8,.2,1) both;
+  }
+  @keyframes rise{from{opacity:0;transform:translateY(16px) scale(.94)}to{opacity:1;transform:none}}
+  .pill{
+    display:inline-flex;align-items:center;gap:8px;
+    border:1px solid var(--line);background:rgba(255,255,255,.03);
+    color:var(--ink-dim);padding:6px 14px;border-radius:999px;font-size:13px;margin-bottom:22px;
+  }
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--pink);box-shadow:0 0 10px var(--pink)}
+  h1{
+    font-size:clamp(2.6rem,7vw,4.4rem);line-height:1.03;margin:0 0 18px;
+    letter-spacing:-.035em;font-weight:800;
+  }
+  h1 .accent{
+    background:linear-gradient(100deg,var(--pink),#ff8ab0 55%,#b48cff);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .lede{
+    font-size:clamp(1.05rem,2.3vw,1.28rem);color:var(--ink-dim);
+    max-width:620px;margin:0 auto 36px;
+  }
+  .cta{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;align-items:center}
+  .btn{
+    display:inline-flex;align-items:center;gap:11px;
+    padding:16px 30px;border-radius:14px;font-weight:700;font-size:16.5px;
+    border:1px solid transparent;transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+  }
+  .btn:hover{text-decoration:none;transform:translateY(-2px)}
+  .btn-primary{
+    background:linear-gradient(180deg,var(--pink),#e01458);color:#fff;
+    box-shadow:0 16px 40px -12px rgba(255,45,110,.7);
+  }
+  .btn-primary:hover{box-shadow:0 22px 50px -12px rgba(255,45,110,.85)}
+  .btn-ghost{background:rgba(255,255,255,.04);border-color:var(--line);color:var(--ink)}
+  .btn-ghost:hover{background:rgba(255,255,255,.08)}
+  .meta{margin-top:18px;font-size:13.5px;color:var(--ink-dim)}
+  .meta code{
+    font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-size:12px;
+    color:#c9c5e6;word-break:break-all;
+  }
+
+  /* ---------- sections ---------- */
+  section{padding:66px 0;border-top:1px solid var(--line)}
+  h2{font-size:clamp(1.7rem,3.6vw,2.3rem);letter-spacing:-.025em;margin:0 0 12px;font-weight:750}
+  .sub{color:var(--ink-dim);margin:0 0 38px;max-width:560px}
+  .grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(258px,1fr))}
+  .card{
+    background:linear-gradient(180deg,var(--card),var(--bg-2));
+    border:1px solid var(--line);border-radius:var(--radius);padding:26px;
+    transition:border-color .2s ease, transform .2s ease;
+  }
+  .card:hover{border-color:#37375e;transform:translateY(-3px)}
+  .card h3{margin:0 0 8px;font-size:1.06rem;letter-spacing:-.01em}
+  .card p{margin:0;color:var(--ink-dim);font-size:14.6px}
+  .ico{
+    width:42px;height:42px;border-radius:12px;display:grid;place-items:center;margin-bottom:16px;
+    background:rgba(255,45,110,.12);border:1px solid rgba(255,45,110,.25);
+  }
+  .ico svg{width:21px;height:21px;stroke:var(--pink-soft);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+  /* ---------- steps ---------- */
+  ol.steps{list-style:none;counter-reset:s;padding:0;margin:0;display:grid;gap:14px}
+  ol.steps li{
+    counter-increment:s;position:relative;padding:18px 22px 18px 62px;
+    background:rgba(255,255,255,.025);border:1px solid var(--line);border-radius:14px;
+    color:var(--ink-dim);font-size:15px;
+  }
+  ol.steps li strong{color:var(--ink);font-weight:650}
+  ol.steps li::before{
+    content:counter(s);position:absolute;left:20px;top:17px;
+    width:26px;height:26px;border-radius:8px;display:grid;place-items:center;
+    background:var(--pink);color:#fff;font-size:13.5px;font-weight:700;
+  }
+
+  /* ---------- faq ---------- */
+  details{
+    border:1px solid var(--line);border-radius:14px;padding:0 20px;margin-bottom:12px;
+    background:rgba(255,255,255,.025);
+  }
+  details[open]{border-color:#37375e}
+  summary{
+    cursor:pointer;padding:17px 0;font-weight:620;list-style:none;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+  }
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";color:var(--pink);font-size:20px;line-height:1;font-weight:400}
+  details[open] summary::after{content:"–"}
+  details p{margin:0 0 18px;color:var(--ink-dim);font-size:14.8px}
+
+  /* ---------- download strip ---------- */
+  .strip{
+    background:linear-gradient(140deg,rgba(255,45,110,.14),rgba(126,92,255,.12));
+    border:1px solid rgba(255,45,110,.28);border-radius:26px;padding:48px 34px;text-align:center;
+  }
+  .strip h2{margin-bottom:10px}
+
+  footer{
+    border-top:1px solid var(--line);padding:34px 0 50px;
+    color:#77749a;font-size:13.5px;
+    display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;
+  }
+  footer a{color:#9d99c0}
+</style>
+</head>
+<body>
+<div class="glow"></div>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top"><img src="assets/icon.png" alt="">YouThere</a>
+    <nav class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#install">Install</a>
+      <a href="#faq">FAQ</a>
+      <a class="btn-sm" href="downloads/YouThere.exe" download>Download</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <div class="wrap hero">
+    <img class="hero-icon" src="assets/icon.png" alt="YouThere app icon" width="132" height="132">
+    <div class="pill"><span class="dot"></span> Latest build for Windows</div>
+    <h1>Still <span class="accent">there</span>?</h1>
+    <p class="lede">YouThere is a small, no-nonsense desktop app for Windows. One file, no installer,
+      no account — download it and double-click.</p>
+    <div class="cta">
+      <a class="btn btn-primary" href="downloads/YouThere.exe" download>
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 12 5 5 5-5"/><path d="M4 21h16"/></svg>
+        Download for Windows
+      </a>
+      <a class="btn btn-ghost" href="#install">How to install</a>
+    </div>
+    <p class="meta">
+      Windows 10 &amp; 11 · 64-bit · 22 MB<br>
+      SHA-256 <code>30806d992898f6596c9e68c85cc3a96355ad2bcd1bf5846a88d4eeee25a49d02</code>
+    </p>
+  </div>
+
+  <section id="features">
+    <div class="wrap">
+      <h2>Why you'll like it</h2>
+      <p class="sub">Built to stay out of your way — light on disk, light on ceremony.</p>
+      <div class="grid">
+        <div class="card">
+          <div class="ico"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z"/></svg></div>
+          <h3>Runs instantly</h3>
+          <p>A single portable <code>.exe</code>. No setup wizard, no registry clutter, nothing left behind when you delete it.</p>
+        </div>
+        <div class="card">
+          <div class="ico"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg></div>
+          <h3>Yours alone</h3>
+          <p>No sign-up, no telemetry dashboards, no ads. It runs on your machine and stays on your machine.</p>
+        </div>
+        <div class="card">
+          <div class="ico"><svg viewBox="0 0 24 24"><path d="M4 6h16"/><path d="M4 12h12"/><path d="M4 18h8"/></svg></div>
+          <h3>Clean interface</h3>
+          <p>A focused window with everything one click away. Dark by default, so it fits right in at 2am.</p>
+        </div>
+        <div class="card">
+          <div class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v5l3 2"/></svg></div>
+          <h3>Tiny footprint</h3>
+          <p>About 22 MB on disk and quiet in the background — it won't fight your laptop for memory.</p>
+        </div>
+        <div class="card">
+          <div class="ico"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v5h-5"/></svg></div>
+          <h3>Easy updates</h3>
+          <p>New version? Download the fresh file and replace the old one. That's the entire update process.</p>
+        </div>
+        <div class="card">
+          <div class="ico"><svg viewBox="0 0 24 24"><path d="M8 10h.01"/><path d="M12 10h.01"/><path d="M16 10h.01"/><path d="M21 12a8 8 0 0 1-8 8H7l-4 3V12a8 8 0 0 1 8-8h2a8 8 0 0 1 8 8Z"/></svg></div>
+          <h3>Feedback welcome</h3>
+          <p>Found a bug or want a feature? Open an issue on GitHub — it genuinely shapes what ships next.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="install">
+    <div class="wrap">
+      <h2>Install in four steps</h2>
+      <p class="sub">Under a minute, start to finish.</p>
+      <ol class="steps">
+        <li><strong>Download</strong> <code>YouThere.exe</code> using the button above.</li>
+        <li><strong>Move it somewhere sensible</strong> — your Desktop or a folder like <code>C:\Apps\YouThere</code>. It runs from wherever it sits.</li>
+        <li><strong>Double-click to run.</strong> On first launch Windows SmartScreen may warn you about an unknown publisher — click <em>More info</em> → <em>Run anyway</em>. That's because the build isn't code-signed yet, not because anything is wrong with it.</li>
+        <li><strong>Pin it</strong> to your taskbar if you'll use it often. To uninstall, just delete the file.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <h2>Questions</h2>
+      <p class="sub">The ones people actually ask.</p>
+
+      <details open>
+        <summary>Why does Windows show a security warning?</summary>
+        <p>The app isn't signed with a paid code-signing certificate, so SmartScreen flags it as coming from an unknown publisher. Choose <em>More info</em> → <em>Run anyway</em>. You can always verify the download first by checking its SHA-256 against the hash listed at the top of this page.</p>
+      </details>
+
+      <details>
+        <summary>How do I check the SHA-256 hash?</summary>
+        <p>Open PowerShell in your downloads folder and run <code>Get-FileHash .\YouThere.exe -Algorithm SHA256</code>. The result should match the hash shown in the hero section, character for character.</p>
+      </details>
+
+      <details>
+        <summary>Is there a Mac or Linux version?</summary>
+        <p>Not right now — this build is Windows 64-bit only. If you'd like one, say so in a GitHub issue so it can be prioritised.</p>
+      </details>
+
+      <details>
+        <summary>Does it cost anything?</summary>
+        <p>No. It's free to download and free to use.</p>
+      </details>
+
+      <details>
+        <summary>How do I remove it?</summary>
+        <p>Delete <code>YouThere.exe</code>. There's no installer and no uninstaller, because there's nothing else to clean up.</p>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="strip">
+        <h2>Ready when you are</h2>
+        <p class="sub" style="margin:0 auto 28px">One file. One click. Windows 10 and 11.</p>
+        <a class="btn btn-primary" href="downloads/YouThere.exe" download>
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 12 5 5 5-5"/><path d="M4 21h16"/></svg>
+          Download YouThere
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="wrap">
+  <span>© <span id="yr">2026</span> YouThere</span>
+  <span><a href="https://github.com/jakubsenczyszyn2015-netizen/youthere">GitHub</a> · <a href="downloads/YouThere.exe" download>Direct download</a></span>
+</footer>
+
+<script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
+</body>
+</html>
