@@ -30,9 +30,9 @@ The site is static, so nothing needs to be built.
 
 | Platform | File | Size | SHA-256 |
 | --- | --- | --- | --- |
-| Windows 10/11 (x64) | `downloads/YouThere.exe` | 16.9 MB | `2f5c6c412b1ab70a13ec70d4bd601b7c479b445d503eccbc52a34e130406c6fe` |
-| macOS (Apple Silicon) | `downloads/YouThere-mac.zip` | 14.1 MB | `1eb62628c388627ed80f5422680abc643be871b5f7bfca6faa27605ada559ad6` |
-| Linux | <https://fromsmash.com/lenex> | — | hosted off-repo, link expires |
+| Windows 10/11 (x64) | `downloads/YouThere.exe` | 16.9 MB | `419ccdab55323edeec07a2450b261c6cf7e772aa9cbfa81e14c44b307c19d483` |
+| macOS (Apple Silicon) | `downloads/YouThere-mac.zip` | 14.1 MB | `49b02812c818580753ba8671f302251b4c6cbd921391838741ff12283af761a3` |
+| Linux | <https://fromsmash.com/lenex2> | — | hosted off-repo, link expires |
 
 The Linux build is too large for the 100 MB file limit, so it's distributed over a Smash
 transfer link. Those expire — when it dies, replace the URL in the Linux card in

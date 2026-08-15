@@ -2,7 +2,15 @@
 
 All notable changes to the YouThere? desktop client.
 
-## Latest build — 2026-08-14
+## Refreshed builds — 2026-08-15
+
+New Windows, macOS and Linux builds, and a new Linux transfer link.
+
+The Windows and macOS desktop clients are byte-for-byte unchanged in behaviour from the
+previous release — same client code, just rebuilt — so anything new in this release is
+either server-side or in the Linux build.
+
+## Cross-platform — 2026-08-14
 
 **YouThere? now runs on macOS and Linux, not just Windows.** The overlay used to share a
 process with the app window, and tkinter and the webview toolkit each insist on owning the
